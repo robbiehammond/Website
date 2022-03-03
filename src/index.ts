@@ -8,6 +8,7 @@ const load = (app: PIXI.Application) => {
         });
     });
 };
+console.log("testing 2");
 
 const main = async () => {
     // Main app

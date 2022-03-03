@@ -2,3 +2,4 @@
 dist/
 .vscode
 .prettierrc
+.DS_Store
