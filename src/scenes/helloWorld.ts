@@ -8,20 +8,22 @@ export class HelloWorld extends Container {
     constructor(app: Application) {
         super();
         this.app = app;
-        this.state = { velocity: { x: 1, y: 1 } };
+        this.state = { velocity: { x: 10, y: 20 } };
         this.update = this.update.bind(this);
 
         this.sprite = new Sprite(
             app.loader.resources['assets/hello-world.png'].texture
         );
-        this.sprite.x = window.innerWidth / 2 - this.sprite.width / 2;
-        this.sprite.y = window.innerHeight / 2 - this.sprite.height / 2;
+        this.sprite.x = window.innerWidth / 20 - this.sprite.width / 20;
+        this.sprite.y = window.innerHeight / 20 - this.sprite.height / 20;
+        this.sprite.width = 300;
+        this.sprite.height = 300;
         this.addChild(this.sprite);
 
         // Handle window resizing
         window.addEventListener('resize', (e) => {
-            this.sprite.x = window.innerWidth / 2 - this.sprite.width / 2;
-            this.sprite.y = window.innerHeight / 2 - this.sprite.height / 2;
+            this.sprite.x = window.innerWidth / 20 - this.sprite.width / 20;
+            this.sprite.y = window.innerHeight / 20 - this.sprite.height / 20;
         });
 
         // Handle update
