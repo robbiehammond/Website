@@ -1,5 +1,7 @@
 import * as PIXI from 'pixi.js';
 import { HelloWorld } from './scenes/helloWorld';
+import { Circle } from './client/circle';
+
 
 const load = (app: PIXI.Application) => {
     return new Promise<void>((resolve) => {
@@ -31,7 +33,7 @@ const main = async () => {
     document.body.appendChild(app.view);
 
     // Set scene
-    var scene = new HelloWorld(app);
+    var scene = new Circle(app);
     app.stage.addChild(scene);
 };
 
