@@ -3,12 +3,18 @@ import { Application, Container, Graphics, Sprite } from 'pixi.js';
 export class Circle extends Container {
     app: Application;
     sprite: Graphics;
-    state: { velocity: { x: number; y: number } };
+    state: { 
+        position: { x: number, y: number}, 
+        velocity: { x: number; y: number } 
+    };
 
-    constructor(app: Application) {
+    constructor(app: Application, posX: number, posY: number, velX: number, velY: number) {
         super();
         this.app = app;
-        this.state = { velocity: { x: 10, y: 20 } };
+        this.state = { 
+            position: {x: posX, y: posY }, 
+            velocity: {x: velX, y: velY } 
+        };
         this.update = this.update.bind(this);
 
         this.sprite = new Graphics();
@@ -32,21 +38,22 @@ export class Circle extends Container {
     }
 
     update(_: any, delta: number) {
-        console.log(this.sprite.x);
-        console.log(this.sprite.y);
         if (
-            this.sprite.x <= 0 ||
-            this.sprite.x >= window.innerWidth - this.sprite.width
+            this.state.position.x <= 0 ||
+            this.state.position.x >= window.innerWidth - this.sprite.width
         ) {
             this.state.velocity.x = -this.state.velocity.x;
         }
         if (
-            this.sprite.y <= 0 ||
-            this.sprite.y >= window.innerHeight - this.sprite.height
+            this.state.position.y <= 0 ||
+            this.state.position.y >= window.innerHeight - this.sprite.height
         ) {
             this.state.velocity.y = -this.state.velocity.y;
         }
-        this.sprite.x += this.state.velocity.x;
-        this.sprite.y += this.state.velocity.y;
+        this.state.position.x += this.state.velocity.x;
+        this.state.position.y += this.state.velocity.y;
+
+        this.sprite.x = this.state.position.x;
+        this.sprite.y = this.state.position.y;
     }
 }

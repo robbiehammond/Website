@@ -5,7 +5,6 @@
     "scripts": {
         "dev": "webpack-dev-server -d",
         "build": "tsc && webpack --mode development --config webpackbuild.config.js"
-
     },
     "author": "Guillaume DESFORGES <aceus02@gmail.com>",
     "license": "MIT",
@@ -21,6 +20,7 @@
         "webpack-dev-server": "^3.10.3"
     },
     "dependencies": {
-        "pixi.js": "5.2.1"
+        "pixi.js": "5.2.1",
+        "socket.io-client": "^4.4.1"
     }
 }
