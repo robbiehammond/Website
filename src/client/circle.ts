@@ -1,7 +1,7 @@
 import { Application, Container, Graphics, Sprite } from 'pixi.js';
 import { getRandomValue } from './Utils/utils';
 
-enum Colors {
+export enum Color {
     black = 0x000000,
     red = 0xFF0000,
     green = 0x00FF00,
@@ -21,7 +21,7 @@ export class Circle extends Container {
     };
 
     //Note: could add the color into the constructor
-    constructor(app: Application, posX: number, posY: number, velX: number, velY: number) {
+    constructor(app: Application, posX: number, posY: number, velX: number, velY: number, color: Color) {
         super();
         this.app = app;
         this.state = { 
@@ -31,7 +31,7 @@ export class Circle extends Container {
         this.update = this.update.bind(this);
 
         this.sprite = new Graphics();
-        this.sprite.beginFill(getRandomValue(Colors));
+        this.sprite.beginFill(getRandomValue(Color));
         this.sprite.drawCircle(0, 0, 10);
         this.sprite.endFill();
         this.sprite.x = posX;

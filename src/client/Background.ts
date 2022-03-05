@@ -1,5 +1,7 @@
 import { Application, Container, Graphics, Sprite } from 'pixi.js';
-import { Circle } from './circle';
+import { Circle, Color } from './circle';
+import ws from './connection/socketConfig';
+import { getRandomValue } from './Utils/utils';
 
 export class Background extends Container {
     app: Application;
@@ -36,7 +38,18 @@ export class Background extends Container {
     }
 
     addCircle(posX: number, posY: number, velX: number, velY: number) {
-        let circle = new Circle(this.app, posX, posY, velX, velY);
+        let relativeX = posX / window.innerWidth;
+        let relativeY = posY / window.innerHeight;
+        let color = getRandomValue(Color)
+        ws.emit('json', {
+            command: 'place',
+            data: { 
+                color: color,
+                relX: relativeX,
+                relY: relativeY
+            }
+        });
+        let circle = new Circle(this.app, posX, posY, velX, velY, color);
         this.objects.push(circle)
         this.app.stage.addChild(circle);
     }

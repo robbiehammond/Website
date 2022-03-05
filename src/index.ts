@@ -14,10 +14,10 @@ const load = (app: PIXI.Application) => {
 };
 
 const main = async () => {
-    //ws.emit('json', {
-    //    command: 'testing',
-    //    data: "this is a string, I just want to see if it will be printed"
-    //});
+    ws.emit('json', {
+        command: 'getPlacements',
+        data: ""
+    });
 
     // Main app
     let app = new PIXI.Application({
@@ -51,16 +51,17 @@ const main = async () => {
         }
     )
     app.stage.addChild(background);
-
-    app.stage.addChild(new Circle(app, 1,1,3,3));
-    
-    
-    
 };
 
 
 
 main();
 
-//TODO: Create a container for the background that listens for clicks. On a click, spawn a circle in the click location,
-//going at a random velocity for now.
+/*
+TODO: 
+    - Streamline messages
+    - Assign a "leader". This is the one the server constantly pulls data from to update state. Maybe do it every second?
+    - When a new person joins, server sends most recent info.
+
+
+*/
