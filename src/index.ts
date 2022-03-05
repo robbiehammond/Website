@@ -1,4 +1,5 @@
 import * as PIXI from 'pixi.js';
+import { Background } from './client/Background';
 import { Circle } from './client/circle';
 import ws from './client/connection/socketConfig'
 
@@ -39,14 +40,22 @@ const main = async () => {
     await load(app);
     document.body.appendChild(app.view);
 
-    // Set scene
-    //app.stage.on(
-    //    'pointerdown', (event: any) => {
-    //        let pos = event.data.global;
-    //        app.stage.addChild(app, pos.x, pos.y, 4,2);
-    //    }
-    //)
-    app.stage.addChild(new Circle(app, 100, 100, 2, 5));
+
+    let background = new Background(app);
+
+    app.stage.on(
+        'pointerdown', (event: any) => {
+            let pos = event.data.global;
+            console.log(pos.x + " " + pos.y);
+            background.addCircle(pos.x, pos.y, 1, 2);
+        }
+    )
+    app.stage.addChild(background);
+
+    app.stage.addChild(new Circle(app, 1,1,3,3));
+    
+    
+    
 };
 
 

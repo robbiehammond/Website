@@ -18,13 +18,13 @@ export class Circle extends Container {
         this.update = this.update.bind(this);
 
         this.sprite = new Graphics();
-        this.sprite.beginFill(0x000000)
-        this.sprite.drawCircle(30,30,30);
+        this.sprite.beginFill(0x000000);
+        this.sprite.drawCircle(0, 0, 10);
         this.sprite.endFill();
-        this.sprite.x = window.innerWidth / 20 - this.sprite.width / 20;
-        this.sprite.y = window.innerHeight / 20 - this.sprite.height / 20;
-        this.sprite.width = 300;
-        this.sprite.height = 300;
+        this.sprite.x = posX;
+        this.sprite.y = posY;
+        this.sprite.width = 100;
+        this.sprite.height = 100;
         this.addChild(this.sprite);
 
         // Handle window resizing
