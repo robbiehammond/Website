@@ -2,6 +2,7 @@ import * as PIXI from 'pixi.js';
 import { Background } from './client/Background';
 import { Circle } from './client/circle';
 import ws from './client/connection/socketConfig'
+import { getRandomNumber } from './client/Utils/utils';
 
 
 const load = (app: PIXI.Application) => {
@@ -46,8 +47,7 @@ const main = async () => {
     app.stage.on(
         'pointerdown', (event: any) => {
             let pos = event.data.global;
-            console.log(pos.x + " " + pos.y);
-            background.addCircle(pos.x, pos.y, 1, 2);
+            background.addCircle(pos.x, pos.y, getRandomNumber(-3,3), getRandomNumber(-3,3));
         }
     )
     app.stage.addChild(background);

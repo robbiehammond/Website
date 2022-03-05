@@ -37,6 +37,7 @@ export class Background extends Container {
 
     addCircle(posX: number, posY: number, velX: number, velY: number) {
         let circle = new Circle(this.app, posX, posY, velX, velY);
+        this.objects.push(circle)
         this.app.stage.addChild(circle);
     }
 
