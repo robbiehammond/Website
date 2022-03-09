@@ -4,6 +4,7 @@ import { Player } from './client/Player'
 import ws from './client/connection/socketConfig'
 import { Connector } from './client/connection/Connector';
 import { MessageType } from './client/connection/Message';
+import { InputHandler } from './client/Utils/handlers/inputHandler';
 
 
 const load = (app: PIXI.Application) => {
@@ -15,8 +16,10 @@ const load = (app: PIXI.Application) => {
 };
 
 const main = async () => {
+    //initializing stuff
     let c = Connector.getInstance()
     c.send(MessageType.test1, {info: "this is a test"});
+    let i = InputHandler.getInstance();
 
 
     // Main app
@@ -44,8 +47,11 @@ const main = async () => {
 
     let background = new Background(app);
     let player = new Player(app);
-    app.stage.addChild(player);
     app.stage.addChild(background);
+    app.stage.addChild(player);
+
+    //app.ticker.add(i.update);
+
     
 };
 
