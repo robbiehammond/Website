@@ -1,8 +1,9 @@
 import * as PIXI from 'pixi.js';
 import { Background } from './client/Background';
-import { Circle } from './client/circle';
+import { Player } from './client/Player'
 import ws from './client/connection/socketConfig'
-import { getRandomNumber } from './client/Utils/utils';
+import { Connector } from './client/connection/Connector';
+import { MessageType } from './client/connection/Message';
 
 
 const load = (app: PIXI.Application) => {
@@ -14,10 +15,9 @@ const load = (app: PIXI.Application) => {
 };
 
 const main = async () => {
-    ws.emit('json', {
-        command: 'getPlacements',
-        data: ""
-    });
+    let c = Connector.getInstance()
+    c.send(MessageType.test1, {info: "this is a test"});
+
 
     // Main app
     let app = new PIXI.Application({
@@ -43,14 +43,10 @@ const main = async () => {
 
 
     let background = new Background(app);
-
-    app.stage.on(
-        'pointerdown', (event: any) => {
-            let pos = event.data.global;
-            background.addCircle(pos.x, pos.y, getRandomNumber(-3,3), getRandomNumber(-3,3));
-        }
-    )
+    let player = new Player(app);
+    app.stage.addChild(player);
     app.stage.addChild(background);
+    
 };
 
 
@@ -59,9 +55,11 @@ main();
 
 /*
 TODO: 
-    - Streamline messages
-    - Assign a "leader". This is the one the server constantly pulls data from to update state. Maybe do it every second?
-    - When a new person joins, server sends most recent info.
+    - Fix the type error thing: the incoming message is a string, should be json
+    - get simple movement to work: send location update every second? On recieve, compare cur location to recieved:
+        if cur location is far from recieved (much further than velocity will allow), jump them back
+        if cur location is close to prev location (something that their velocity will allow), keep things the same
+        -This is apparently very complex, so just consult stack overflow.
 
 
 */
