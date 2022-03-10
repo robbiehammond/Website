@@ -5,7 +5,7 @@ import { MessageType } from './connection/Message';
 import { InputHandler } from './Utils/handlers/inputHandler';
 import { getRandomValue } from './Utils/utils';
 
-const bufferPeriod = 100; //time between sent inputs to server, in ms
+const bufferPeriod = 150; //time between sent inputs to server, in ms
 
 export enum Color {
     black = 0x000000,

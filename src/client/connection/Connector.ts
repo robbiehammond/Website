@@ -1,6 +1,6 @@
 import { MessageType, Message } from './Message';
 import openSocket from 'socket.io-client'
-let debug: boolean = false
+let debug: boolean = false;
 
 export class Connector {
     private static _instance: Connector;
@@ -9,7 +9,7 @@ export class Connector {
         if (debug)
             this.ws = openSocket('ws://127.0.0.1:8000') 
         else 
-            this.ws = openSocket('ws://18.217.140.214/server')
+            this.ws = openSocket('ws://robhamprojects.net')
             ;
 
     }
