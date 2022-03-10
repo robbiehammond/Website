@@ -1,7 +1,8 @@
 export enum MessageType {
     test1,
     test2,
-    movement
+    movement,
+    enter
 }
 
 export class Message {
@@ -32,6 +33,9 @@ function toString(type: MessageType) {
         }
         case MessageType.movement: {
             return "movement";
+        }
+        case MessageType.enter: {
+            return "enter";
         }
         default: {
             return "This MessageType has not been implemented in the toString function."

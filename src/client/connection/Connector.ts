@@ -20,7 +20,7 @@ export class Connector {
             msg = new Message(type, data);
         else 
             msg = new Message(type, { info: "No additional data provided"});
-        this.ws.emit('json', JSON.stringify(msg));
+        this.ws.emit('json', msg);
     }
 
     public static on() {

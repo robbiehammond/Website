@@ -17,9 +17,6 @@ const load = (app: PIXI.Application) => {
 
 const main = async () => {
     //initializing stuff
-    let c = Connector.getInstance()
-    c.send(MessageType.test1, {info: "this is a test"});
-    let i = InputHandler.getInstance();
 
 
     // Main app
@@ -44,13 +41,13 @@ const main = async () => {
     await load(app);
     document.body.appendChild(app.view);
 
-
     let background = new Background(app);
-    let player = new Player(app);
     app.stage.addChild(background);
-    app.stage.addChild(player);
 
     //app.ticker.add(i.update);
+    let c = Connector.getInstance()
+    c.send(MessageType.enter, {info: "this is a test"});
+    let i = InputHandler.getInstance();
 
     
 };
@@ -61,11 +58,10 @@ main();
 
 /*
 TODO: 
-    - Fix the type error thing: the incoming message is a string, should be json
-    - get simple movement to work: send location update every second? On recieve, compare cur location to recieved:
-        if cur location is far from recieved (much further than velocity will allow), jump them back
-        if cur location is close to prev location (something that their velocity will allow), keep things the same
-        -This is apparently very complex, so just consult stack overflow.
-
+    - Save sockets to created IDs on server side
+    - Make mvmt messages update the players dict on the server side
+    - Have circles moved by ID on mvmt messages (don't just delete and redraw)
+        -means a movementConfirm needs to be written in background, and removed from player
+            -have the function take an ID, which can be extrapolated from the response msg
 
 */

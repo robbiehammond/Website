@@ -32,12 +32,12 @@ export class Circle extends Container {
 
         this.sprite = new Graphics();
         this.sprite.beginFill(getRandomValue(Color));
-        this.sprite.drawCircle(0, 0, 10);
+        this.sprite.drawCircle(0, 0, 20);
         this.sprite.endFill();
         this.sprite.x = posX;
         this.sprite.y = posY;
-        this.sprite.width = 100;
-        this.sprite.height = 100;
+        this.sprite.width = 20;
+        this.sprite.height = 20;
         this.addChild(this.sprite);
 
         // Handle window resizing
@@ -46,27 +46,9 @@ export class Circle extends Container {
             this.sprite.y = window.innerHeight / 20 - this.sprite.height / 20;
         });
 
-        // Handle update
-        app.ticker.add(this.update);
     }
 
     update(_: any, delta: number) {
-        if (
-            this.state.position.x <= 0 ||
-            this.state.position.x >= window.innerWidth - this.sprite.width
-        ) {
-            this.state.velocity.x = -this.state.velocity.x;
-        }
-        if (
-            this.state.position.y <= 0 ||
-            this.state.position.y >= window.innerHeight - this.sprite.height
-        ) {
-            this.state.velocity.y = -this.state.velocity.y;
-        }
-        this.state.position.x += this.state.velocity.x;
-        this.state.position.y += this.state.velocity.y;
-
-        this.sprite.x = this.state.position.x;
-        this.sprite.y = this.state.position.y;
+        
     }
 }
