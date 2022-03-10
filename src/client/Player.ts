@@ -52,28 +52,36 @@ export class Player extends Circle {
     sendLastMovement() {
         if (this.inputBuffer.length > 0) {
             const key = this.inputBuffer[this.inputBuffer.length - 1];
-            console.log(key);
-            this.connector.send(MessageType.movement, 
-                {x: this.state.position.x,  y: this.state.position.y, 
-                velX: this.state.velocity.x, velY: this.state.velocity.y, 
-                direction: "up"}); //make many other cases for this john
+            switch (key) {
+                case 87: //w
+                    this.connector.send(MessageType.movement, 
+                        {ID: this.ID, x: this.state.position.x,  y: this.state.position.y, 
+                        velX: this.state.velocity.x, velY: this.state.velocity.y, 
+                        direction: "up"}); //make many other cases for this john
+                    break;
+                case 83: //s
+                    this.connector.send(MessageType.movement, 
+                        {ID: this.ID, x: this.state.position.x,  y: this.state.position.y, 
+                        velX: this.state.velocity.x, velY: this.state.velocity.y, 
+                        direction: "down"}); //make many other cases for this john
+                    break;
+                case 68: //d
+                    this.connector.send(MessageType.movement, 
+                        {ID: this.ID, x: this.state.position.x,  y: this.state.position.y, 
+                        velX: this.state.velocity.x, velY: this.state.velocity.y, 
+                        direction: "right"}); //make many other cases for this john
+                    break;
+                case 65:
+                    this.connector.send(MessageType.movement, 
+                        {ID: this.ID, x: this.state.position.x,  y: this.state.position.y, 
+                        velX: this.state.velocity.x, velY: this.state.velocity.y, 
+                        direction: "left"}); //make many other cases for this john
+                    break;
+                default:
+                    //i.e. don't send anything
+                    break;
+            }
 
-            /*
-            if (key == 87)
-                this.state.position.y -= this.state.velocity.y;
-
-            else if (key == 83)
-                this.state.position.y += this.state.velocity.y;
-
-            else if (key == 68)
-                this.state.position.x += this.state.velocity.x;
-
-            else if (key == 65)
-                this.state.position.x -= this.state.velocity.x;
-            */
-
-            this.sprite.x = this.state.position.x;
-            this.sprite.y = this.state.position.y;
         }
         this.lastMoved = Date.now();
 
@@ -84,7 +92,6 @@ export class Player extends Circle {
         this.state.position.y = data['y']
         this.sprite.x = this.state.position.x;
         this.sprite.y = this.state.position.y;
-
     }
 
     update(_: any, delta: number) {

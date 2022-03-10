@@ -1,14 +1,18 @@
 from flask import Flask, request, jsonify
 from flask_socketio import SocketIO, emit
 from flask_cors import CORS
-players = {}
-playersIDsToSockets = {} 
+players = {} #links a player to their game info
+playersIDsToSockets = {} #links a player to their socket info
 nextID = 0
 
 app = Flask(__name__)
 CORS(app)
 socketio = SocketIO(app, cors_allowed_origins="*")
 
+
+#This stuff needs serious refactoring. Maybe make a connection manager class?
+#From the class, all info for a specific client can be fetched easily. 
+#Fetching can happen through the playerID or socketID.
 class Socket:
     def __init__(self, sid):
         self.sid = sid
@@ -20,13 +24,34 @@ class Socket:
     def getSocketID(self):
         return self.sid
 
+def removePlayer(ID):
+    pass
+    #remove from playersIDsToSockets and players dict.
+    #without this, it'll be too easy to forget about one
 
-
+#also, make this not be terrible
 def handleMovementMsg(data):
     if data['direction'] == 'up':
-        print(str(data['y']) + " "  + str(data['velY']))
+        playerID = data['ID']
         newY = int(data['y']) -  int(data['velY'])
+        players[playerID]['y'] = newY
         socketio.emit('movementConfirm', { 'x': data['x'], 'y': newY})
+    elif data['direction'] == 'down':
+        playerID = data['ID']
+        newY = int(data['y']) + int(data['velY'])
+        players[playerID]['y'] = newY
+        socketio.emit('movementConfirm', { 'x': data['x'], 'y': newY})
+    elif data['direction'] == 'right':
+        playerID = data['ID']
+        newX = int(data['x']) + int(data['velX'])
+        players[playerID]['x'] = newX
+        socketio.emit('movementConfirm', { 'x': newX, 'y': data['y']})
+    elif data['direction'] == 'left':
+        playerID = data['ID']
+        newX = int(data['x']) - int(data['velX'])
+        players[playerID]['x'] = newX
+        socketio.emit('movementConfirm', { 'x': newX, 'y': data['y']})
+
 
 
 def handleEnterMsg(data):
@@ -57,6 +82,7 @@ def onDisconnect():
         sid = entry[1].getSocketID()
         if sid == request.sid:
             del playersIDsToSockets[entry[0]]
+            #del players[entry[0]] gonna leave this commented out for testing
             break
 
 
@@ -64,6 +90,3 @@ if __name__ == '__main__':
     socketio.run(app, host='0.0.0.0', port='8000')
 
 
-#TODO: Remember which client is which (prolly map socket to ID). 
-#This way, messages don't always have to be broadcasted to everyone
-#Not really needed for now, though
