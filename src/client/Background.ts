@@ -1,7 +1,6 @@
 import { Application, Container, Graphics, Sprite } from 'pixi.js';
 import { Circle, Color } from './circle';
 import { Connector } from './connection/Connector';
-import ws from './connection/socketConfig';
 import { Player } from './Player';
 import { getRandomValue } from './Utils/utils';
 

@@ -1,7 +1,6 @@
 import * as PIXI from 'pixi.js';
 import { Background } from './client/Background';
 import { Player } from './client/Player'
-import ws from './client/connection/socketConfig'
 import { Connector } from './client/connection/Connector';
 import { MessageType } from './client/connection/Message';
 import { InputHandler } from './client/Utils/handlers/inputHandler';
