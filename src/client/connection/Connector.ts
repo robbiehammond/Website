@@ -9,7 +9,7 @@ export class Connector {
         if (debug)
             this.ws = openSocket('ws://127.0.0.1:8000') 
         else 
-            this.ws = openSocket('ws://robhamprojects.net')
+            this.ws = openSocket('ws://18.217.140.214:5050')
             ;
 
     }
